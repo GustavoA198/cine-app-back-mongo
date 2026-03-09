@@ -1,0 +1,44 @@
+name: cineapp
+
+services:
+
+  backend:
+    image: eclipse-temurin:21-jdk-alpine
+    container_name: cineapp
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+    depends_on:
+      - db
+      - rabbitmq
+    volumes:
+      - ./cineapp:/app
+    working_dir: /app
+    command: ./gradlew bootRun
+
+  db:
+    image: postgres:14.3
+    container_name: cineappdb
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: cineapprabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+
+volumes:
+  postgres_data:
