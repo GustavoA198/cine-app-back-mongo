@@ -1,16 +1,21 @@
 package co.com.cineapp.backmongo;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@SpringBootApplication(scanBasePackages = {
+@SpringBootApplication(exclude = {
+	MongoAutoConfiguration.class,
+	MongoDataAutoConfiguration.class
+}, scanBasePackages = {
 	"co.com.cineapp.backmongo",
 	"co.com.clients.parent",
-	"co.com.clients.parent.service.rabbitmq"
+	"co.com.clients.rabbitmq"
 })
 @EnableFeignClients
 @ImportAutoConfiguration({FeignAutoConfiguration.class})

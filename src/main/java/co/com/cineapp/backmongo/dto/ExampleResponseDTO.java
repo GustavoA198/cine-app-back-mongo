@@ -10,7 +10,4 @@ public class ExampleResponseDTO {
   private String message;
   private Object data;
 
-  public static class CanonicalExampleResponseDto extends AppException {
-  }
-
 }

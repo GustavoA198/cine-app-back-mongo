@@ -10,9 +10,9 @@ public final class Constants {
 	public static final String REGEX_ALPHANUMERIC = "^[\\p{L}\\p{N} ]*$";
 	public static final String REGEX_ALPHANUMERIC_W_SPECIAL_CHARS = "^[\\p{L}\\p{N} .,'\"!@#$%&*()_+=\\-\\[\\]{}:;?/\\\\|]*$";
 
-	public static final String QUEUE = "cine-app-back-mongo-queue";
+	public static final String CINE_APP_BACK_MONGO_QUEUE = "cineAppBackMongoQueue";
 
-	public static final String INPUT_CHANNEL = "cineAppBackMongoInputChannel";
-	public static final String OUTPUT_CHANNEL = "cineAppBackMongoOutputChannel";
+	public static final String CINE_APP_BACK_MONGO_INPUT_CHANNEL = "cineAppBackMongoInputChannel";
+	public static final String CINE_APP_BACK_MONGO_OUTPUT_CHANNEL = "cineAppBackMongoOutputChannel";
 
 }

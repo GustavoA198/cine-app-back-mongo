@@ -32,7 +32,7 @@ public class CineAppBackMongoController {
 
 	@Operation(summary = "Ejemplo de servicio", description = "Servicio de ejemplo para demostrar la estructura base")
 	@ApiResponse(responseCode = "200", description = "Se ha realizado la consulta exitosamente", content = {
-			@Content(mediaType = "application/json", schema = @Schema(implementation = ExampleResponseDTO.CanonicalExampleResponseDto.class)) })
+			@Content(mediaType = "application/json", schema = @Schema(implementation = ExampleResponseDTO.class)) })
 	@PostMapping
 	public ResponseEntity<ExampleResponseDTO> performExample(
 			@RequestBody ExampleRequestDTO request,
