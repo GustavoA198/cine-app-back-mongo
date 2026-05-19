@@ -2,7 +2,7 @@ package co.com.cineapp.backmongo.consumer;
 
 import co.com.cineapp.backmongo.service.ServicioPrueba;
 import co.com.clients.parent.exception.BackendException;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.Headers;
@@ -15,9 +15,9 @@ import static co.com.cineapp.backmongo.utilities.Constants.CINE_APP_BACK_MONGO_Q
 import static co.com.clients.parent.utility.ConstantField.RABBIT_MQ_ERROR_HANDLER;
 
 @Component
-@RequiredArgsConstructor
 public class CineAppBackMongoConsumer {
 
+  @Autowired
   ServicioPrueba servicioPrueba;
 
   @RabbitListener(queues = CINE_APP_BACK_MONGO_QUEUE, errorHandler = RABBIT_MQ_ERROR_HANDLER)
