@@ -1,44 +1,58 @@
-name: cineapp
+version: '3.8'
 
 services:
 
   backend:
-    image: eclipse-temurin:21-jdk-alpine
-    container_name: cineapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - GITHUB_USER=GustavoA198
+        - GITHUB_TOKEN=${GITHUB_TOKEN}
+    container_name: cineapp-backend
     ports:
       - "8080:8080"
     environment:
-      SPRING_PROFILES_ACTIVE: dev
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+      - MONGODB_URI=${MONGODB_URI}
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRATION=${JWT_EXPIRATION}
+      - CLOUDINARY_URL=${CLOUDINARY_URL}
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - LOGGING_LEVEL_ROOT=INFO
+      - LOGGING_LEVEL_CINEAPP=DEBUG
     depends_on:
-      - db
       - rabbitmq
-    volumes:
-      - ./cineapp:/app
-    working_dir: /app
-    command: ./gradlew bootRun
-
-  db:
-    image: postgres:14.3
-    container_name: cineappdb
-    restart: always
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - cineapp-network
+    restart: unless-stopped
 
   rabbitmq:
-    image: rabbitmq:3-management
-    container_name: cineapprabbitmq
+    image: rabbitmq:3-management-alpine
+    container_name: cineapp-rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
     environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+      - RABBITMQ_DEFAULT_VHOST=/
+    networks:
+      - cineapp-network
+    restart: unless-stopped
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+networks:
+  cineapp-network:
+    driver: bridge
 
 volumes:
-  postgres_data:
+  rabbitmq_data:

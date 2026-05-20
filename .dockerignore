@@ -1,0 +1,39 @@
+# Git
+.git
+.gitignore
+
+# Archivos de IDE
+.idea/
+*.iml
+.vscode/
+
+# Logs
+*.log
+logs/
+
+# Archivos temporales
+*.tmp
+*.bak
+*.swp
+
+# Documentación
+**/*.md
+README.md
+
+# Tests (no necesarios en producción)
+**/src/test/
+**/target/test/
+**/*Test*.java
+
+# Archivos de configuración local
+.env
+.env.local
+.env.*.local
+
+# Node (si hay frontend)
+node_modules/
+
+# Build artifacts
+target/
+*.jar
+*.war

@@ -3,9 +3,11 @@
 .sonarlint/
 
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+target/
+
+### Maven Wrapper ###
+mvnw
+mvnw.cmd
 
 ### STS ###
 .apt_generated
@@ -38,3 +40,12 @@ build/
 logs/
 HELP.md
 **/.DS_Store
+
+# Environment variables (contain secrets)
+.env
+.env.local
+.env.*.local
+
+
+# documentation
+documentacion/*
